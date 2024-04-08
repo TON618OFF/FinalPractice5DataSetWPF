@@ -64,7 +64,7 @@ namespace Practice5
             try
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
-                clients.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(id));
+                clients.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = clients.GetData();
             }
             catch
@@ -75,7 +75,7 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            clients.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text);
+            clients.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text));
             dg_BD.ItemsSource = clients.GetData();
         }
     }

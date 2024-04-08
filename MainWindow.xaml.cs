@@ -23,6 +23,9 @@ namespace Practice5
     public partial class MainWindow : Window
     {
         AuthTableAdapter auth = new AuthTableAdapter();
+        ClientsTableAdapter clients = new ClientsTableAdapter();
+        StaffTableAdapter staff = new StaffTableAdapter();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,47 +41,46 @@ namespace Practice5
                 {
                     if (row["JustLogin"].ToString() == Login.Text && row["JustPassword"].ToString() == Password.Password)
                     {
-                        int? clientID = row.IsNull("Client_ID") ? null : (int?)row["Client_ID"];
-                        int? staffID = row.IsNull("Staff_ID") ? null : (int?)row["Staff_ID"];
-                        
-                        if (staffID != null)
+                        int authID = (int)row["ID_Auth"];
+
+                        // Проверяем, является ли пользователь клиентом
+                        DataRow[] clientRow = clients.GetData().Select("Auth_ID = " + authID);
+                        if (clientRow.Length > 0)
                         {
+                            // Если запись найдена в таблице Clients, значит это клиент
                             Admin admin = new Admin();
                             admin.Show();
                             Close();
+                            return;
                         }
-                        else if (clientID != null)
+
+                        // Проверяем, является ли пользователь сотрудником
+                        DataRow[] staffRow = staff.GetData().Select("Auth_ID = " + authID);
+                        if (staffRow.Length > 0)
                         {
+                            // Если запись найдена в таблице Employees, значит это сотрудник
                             Client client = new Client();
                             client.Show();
                             Close();
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show("Неверные данные входа!");
-                        }
+
+                        // Если пользователь не найден ни в Clients, ни в Employees, выводим сообщение об ошибке
+                        MessageBox.Show("Неверные логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
-                    
                 }
-                MessageBox.Show("Неверные данные входа!");
+
+                // Если логин не найден в таблице Authorizations, выводим сообщение об ошибке
+                MessageBox.Show("Неверные логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Произошла ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            
+
         }
 
-        private bool IsAdmin(string username, string password)
-        {
-            return true;
-        }
-
-        private bool IsClient(string username, string password)
-        {
-            return false;
-        }
     }
 }

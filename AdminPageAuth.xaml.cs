@@ -38,8 +38,6 @@ namespace Practice5
                 {
                     pole1.Text = row.Row["JustLogin"].ToString();
                     pole2.Text = row.Row["JustPassword"].ToString();
-                    pole3.Text = row.Row["Client_ID"].ToString();
-                    pole4.Text = row.Row["Staff_ID"].ToString();
                 }
             }
         }
@@ -54,13 +52,13 @@ namespace Practice5
             }
             catch(Exception ex)
             {
-
+                MessageBox.Show("Ошибка: " + ex.Message);
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            auth.InsertQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text));
+            auth.InsertQuery(pole1.Text, pole2.Text);
             dg_BD.ItemsSource = auth.GetData();
         }
 
@@ -69,7 +67,7 @@ namespace Practice5
             try
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
-                auth.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(id));
+                auth.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(id));
                 dg_BD.ItemsSource = auth.GetData();
             }
             catch

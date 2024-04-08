@@ -23,17 +23,19 @@
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dg_BD" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" IsReadOnly="True" EnableColumnVirtualization="True" SelectionChanged="dg_BD_SelectionChanged"/>
+        <DataGrid x:Name="dg_BD" Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="2" IsReadOnly="True" EnableColumnVirtualization="True" SelectionChanged="dg_BD_SelectionChanged"/>
         <TextBox x:Name="pole1" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3"/>
         <TextBox x:Name="pole2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"/>
         <TextBox x:Name="pole3" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3"/>
         <TextBox x:Name="pole4" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"/>
         <TextBox x:Name="pole5" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3"/>
-        <Button x:Name="Delete" Content="Удалить" Grid.Row="6" Grid.Column="2" Width="100" Height="40" FontSize="12" Click="Delete_Click"/>
-        <Button x:Name="Edit" Content="Изменить" Grid.Row="6" Grid.Column="3" Width="100" Height="40" FontSize="12" Click="Edit_Click"/>
-        <Button x:Name="Add" Content="Добавить" Grid.Row="6" Grid.Column="4" Width="100" Height="40" FontSize="12" Click="Add_Click"/>
-        <Frame x:Name="PageFrame" Grid.RowSpan="7" Grid.ColumnSpan="5" NavigationUIVisibility="Hidden"/>
+        <TextBox x:Name="pole6" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"/>
+        <Button x:Name="Delete" Content="Удалить" Grid.Row="7" Grid.Column="2" Width="100" Height="40" FontSize="12" Click="Delete_Click"/>
+        <Button x:Name="Edit" Content="Изменить" Grid.Row="7" Grid.Column="3" Width="100" Height="40" FontSize="12" Click="Edit_Click"/>
+        <Button x:Name="Add" Content="Добавить" Grid.Row="7" Grid.Column="4" Width="100" Height="40" FontSize="12" Click="Add_Click"/>
+        <Frame x:Name="PageFrame" Grid.RowSpan="8" Grid.ColumnSpan="5" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

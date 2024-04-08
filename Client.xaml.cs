@@ -19,7 +19,7 @@ namespace Practice5
     /// </summary>
     public partial class Client : Window
     {
-        List<string> nameTable = new List<string> { "Staff Position", "Staff", "Clients", "Auth", "Authors", "Genre", "Quantity Pages", "Publishing House", "Cover", "Books", "Store", "StoreBooks", "OrderCheck" };
+        List<string> nameTable = new List<string> { "Должность сотрудников", "Сотрудники", "Authors", "Genre", "Quantity Pages", "Publishing House", "Cover", "Books", "Store", "StoreBooks", "OrderCheck" };
 
         public Client()
         {
