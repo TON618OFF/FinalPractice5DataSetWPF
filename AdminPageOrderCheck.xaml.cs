@@ -72,5 +72,39 @@ namespace Practice5
                 //editingElement.Parent.AddChild(comboBox); // добавляем комбобокс в родительский контейнер
             }
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                ordercheck.DeleteQuery(Convert.ToInt32(id));
+                dg_BD.ItemsSource = ordercheck.GetData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                ordercheck.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(id));
+                dg_BD.ItemsSource = ordercheck.GetData();
+            }
+            catch
+            {
+                MessageBox.Show("Не трожь внешние ключи!");
+            }
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            ordercheck.InsertQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text));
+            dg_BD.ItemsSource = ordercheck.GetData();
+        }
     }
 }

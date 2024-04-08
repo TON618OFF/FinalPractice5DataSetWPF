@@ -47,12 +47,30 @@ namespace Practice5
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                clients.DeleteQuery(Convert.ToInt32(id));
+                dg_BD.ItemsSource = clients.GetData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                clients.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(id));
+                dg_BD.ItemsSource = clients.GetData();
+            }
+            catch
+            {
+                MessageBox.Show("Не трожь внешние ключи!");
+            }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

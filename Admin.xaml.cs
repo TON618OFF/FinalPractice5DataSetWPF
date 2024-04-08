@@ -20,7 +20,7 @@ namespace Practice5
     /// </summary>
     public partial class Admin : Window
     {
-        List<string> nameTable = new List<string> { "Staff Position", "Staff", "Clients", "Auth", "Authors", "Genre", "Quantity Pages", "Publishing House", "Cover", "Books", "Store", "StoreBooks", "OrderCheck" };
+        List<string> nameTable = new List<string> { "Должность сотрудников", "Сотрудники", "Клиенты", "Авторизация", "Авторы", "Жанры", "Кол-во страниц", "Издательство", "Обложка", "Книги", "Магазин", "МагазинКниги", "Чек Заказа" };
         public Admin()
         {
             InitializeComponent();
@@ -31,55 +31,55 @@ namespace Practice5
         {
             string nameTable = cb_DB.SelectedItem.ToString();
             
-            if(nameTable == "Staff Position")
+            if(nameTable == "Должность сотрудников")
             {
                 PageFrame.Content = new AdminPageStaffPos();
             }
-            else if(nameTable == "Staff")
+            else if(nameTable == "Сотрудники")
             {
                 PageFrame.Content = new AdminPageStaff();
             }
-            else if (nameTable == "Clients")
+            else if (nameTable == "Клиенты")
             {
                 PageFrame.Content = new AdminPageClients();
             }
-            else if (nameTable == "Auth")
+            else if (nameTable == "Авторизация")
             {
                 PageFrame.Content = new AdminPageAuth();
             }
-            else if (nameTable == "Authors")
+            else if (nameTable == "Авторы")
             {
                 PageFrame.Content = new AdminPageAuthors();
             }
-            else if (nameTable == "Genre")
+            else if (nameTable == "Жанры")
             {
                 PageFrame.Content = new AdminPageGenre();
             }
-            else if (nameTable == "Quantity Pages")
+            else if (nameTable == "Кол-во страниц")
             {
                 PageFrame.Content = new AdminPageQuantityPages();
             }
-            else if (nameTable == "Publishing House")
+            else if (nameTable == "Издательство")
             {
                 PageFrame.Content = new AdminPagePublishHouse();
             }
-            else if (nameTable == "Cover")
+            else if (nameTable == "Обложка")
             {
                 PageFrame.Content = new AdminPageCover();
             }
-            else if (nameTable == "Books")
+            else if (nameTable == "Книги")
             {
                 PageFrame.Content = new AdminPageBooks();
             }
-            else if (nameTable == "Store")
+            else if (nameTable == "Магазин")
             {
                 PageFrame.Content = new AdminPageStore();
             }
-            else if (nameTable == "StoreBooks")
+            else if (nameTable == "МагазинКниги")
             {
                 PageFrame.Content = new AdminPageStoreBooks();
             }
-            else if (nameTable == "OrderCheck")
+            else if (nameTable == "Чек Заказа")
             {
                 PageFrame.Content = new AdminPageOrderCheck();
             }

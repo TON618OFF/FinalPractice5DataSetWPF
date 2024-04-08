@@ -41,5 +41,39 @@ namespace Practice5
                 }
             }
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                store.DeleteQuery(Convert.ToInt32(id));
+                dg_BD.ItemsSource = store.GetData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                store.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(id));
+                dg_BD.ItemsSource = store.GetData();
+            }
+            catch
+            {
+                MessageBox.Show("Не трожь внешние ключи!");
+            }
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            store.InsertQuery(pole1.Text, pole2.Text);
+            dg_BD.ItemsSource = store.GetData();
+        }
     }
 }
