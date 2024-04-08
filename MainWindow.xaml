@@ -1,0 +1,33 @@
+﻿<Window x:Class="Practice5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice5"
+        mc:Ignorable="d"
+        Title="Авторизация" 
+        Height="350" 
+        Width="500" 
+        Background="#FF292929"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.6*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" CornerRadius="10, 10, 10, 10" Background="#FF313131"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Авторизация" Foreground="White" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift Condensed"/>
+        <TextBox x:Name="Login" Grid.Row="2" Grid.Column="1" materialDesign:HintAssist.Hint="Логин" Foreground="White" Width="200" materialDesign:TextFieldAssist.HasClearButton="True" Height="25"/>
+        <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="1" materialDesign:HintAssist.Hint="Пароль" Foreground="White" Width="200" materialDesign:TextFieldAssist.HasClearButton="True" Height="25"/>
+        <Button x:Name="btnLogIn" Background="#FF636363" Grid.Row="4" Grid.Column="1" Width="160" Content="Войти" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="5" BorderBrush="#FF636363" Click="btnLogIn_Click"/>
+    </Grid>
+</Window>
