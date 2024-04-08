@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageBooks : Page
     {
         BooksTableAdapter books = new BooksTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageBooks()
         {
             InitializeComponent();
@@ -81,5 +82,11 @@ namespace Practice5
             books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(pole8.Text));
             dg_BD.ItemsSource = books.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
     }
 }

@@ -6,12 +6,14 @@
       xmlns:local="clr-namespace:Practice5"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AdminPageOrderCheck">
+      Title="AdminPageOrderCheck"
+      Loaded="Page_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="4*"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -34,6 +36,7 @@
         <Button x:Name="Delete" Content="Удалить" Grid.Row="6" Grid.Column="2" Width="100" Height="40" FontSize="12" Click="Delete_Click"/>
         <Button x:Name="Edit" Content="Изменить" Grid.Row="6" Grid.Column="3" Width="100" Height="40" FontSize="12" Click="Edit_Click"/>
         <Button x:Name="Add" Content="Добавить" Grid.Row="6" Grid.Column="4" Width="100" Height="40" FontSize="12" Click="Add_Click"/>
-        <Frame x:Name="PageFrame" Grid.RowSpan="7" Grid.ColumnSpan="5" NavigationUIVisibility="Hidden"/>
+        <Button x:Name="CreateBackup" Content="Бэкап" Grid.Row="9" Grid.Column="5" Width="100" Height="40" FontSize="12" Click="CreateBackup_Click"/>
+        <Frame x:Name="PageFrame" Grid.RowSpan="7" Grid.ColumnSpan="6" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>

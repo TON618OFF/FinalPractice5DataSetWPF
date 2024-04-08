@@ -75,5 +75,10 @@ namespace Practice5
             store.InsertQuery(pole1.Text, pole2.Text);
             dg_BD.ItemsSource = store.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
     }
 }

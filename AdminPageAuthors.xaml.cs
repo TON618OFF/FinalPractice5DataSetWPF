@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageAuthors : Page
     {
         AuthorsTableAdapter authors = new AuthorsTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageAuthors()
         {
             InitializeComponent();
@@ -76,5 +77,11 @@ namespace Practice5
             authors.InsertQuery(pole1.Text, pole2.Text, pole3.Text);
             dg_BD.ItemsSource = authors.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
     }
 }

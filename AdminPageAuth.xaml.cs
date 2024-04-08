@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageAuth : Page
     {
         AuthTableAdapter auth = new AuthTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageAuth()
         {
             InitializeComponent();
@@ -75,5 +76,11 @@ namespace Practice5
                 MessageBox.Show("Не трожь внешние ключи!");
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
     }
 }

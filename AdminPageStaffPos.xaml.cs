@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageStaffPos : Page
     {
         StaffPositionTableAdapter staffpos = new StaffPositionTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageStaffPos()
         {
             InitializeComponent();
@@ -74,5 +75,11 @@ namespace Practice5
             staffpos.InsertQuery(pole1.Text);
             dg_BD.ItemsSource = staffpos.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
     }
 }

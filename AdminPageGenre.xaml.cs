@@ -74,5 +74,10 @@ namespace Practice5
             genre.InsertQuery(pole1.Text);
             dg_BD.ItemsSource = genre.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
     }
 }

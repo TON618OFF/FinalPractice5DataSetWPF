@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageStoreBooks : Page
     {
         StoreBooksTableAdapter storebooks = new StoreBooksTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageStoreBooks()
         {
             InitializeComponent();
@@ -76,5 +77,11 @@ namespace Practice5
             storebooks.InsertQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(pole2.Text), Convert.ToInt32(pole3.Text));
             dg_BD.ItemsSource = storebooks.GetData();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
     }
 }

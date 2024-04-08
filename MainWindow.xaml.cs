@@ -43,35 +43,29 @@ namespace Practice5
                     {
                         int authID = (int)row["ID_Auth"];
 
-                        // Проверяем, является ли пользователь клиентом
                         DataRow[] clientRow = clients.GetData().Select("Auth_ID = " + authID);
                         if (clientRow.Length > 0)
                         {
-                            // Если запись найдена в таблице Clients, значит это клиент
                             Admin admin = new Admin();
                             admin.Show();
                             Close();
                             return;
                         }
 
-                        // Проверяем, является ли пользователь сотрудником
                         DataRow[] staffRow = staff.GetData().Select("Auth_ID = " + authID);
                         if (staffRow.Length > 0)
                         {
-                            // Если запись найдена в таблице Employees, значит это сотрудник
                             Client client = new Client();
                             client.Show();
                             Close();
                             return;
                         }
 
-                        // Если пользователь не найден ни в Clients, ни в Employees, выводим сообщение об ошибке
                         MessageBox.Show("Неверные логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                 }
 
-                // Если логин не найден в таблице Authorizations, выводим сообщение об ошибке
                 MessageBox.Show("Неверные логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)

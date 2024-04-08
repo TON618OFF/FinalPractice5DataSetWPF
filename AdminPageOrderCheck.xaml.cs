@@ -23,6 +23,7 @@ namespace Practice5
     public partial class AdminPageOrderCheck : Page
     {
         OrderCheckTableAdapter ordercheck = new OrderCheckTableAdapter();
+        QueriesTableAdapter backups = new QueriesTableAdapter();
         public AdminPageOrderCheck()
         {
             InitializeComponent();
@@ -105,6 +106,16 @@ namespace Practice5
         {
             ordercheck.InsertQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text));
             dg_BD.ItemsSource = ordercheck.GetData();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
+        private void CreateBackup_Click(object sender, RoutedEventArgs e)
+        {
+            backups.Backup_BookStore();
         }
     }
 }
