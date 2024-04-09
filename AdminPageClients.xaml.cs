@@ -23,9 +23,12 @@ namespace Practice5
     public partial class AdminPageClients : Page
     {
         ClientsTableAdapter clients = new ClientsTableAdapter();
+        AuthTableAdapter auth = new AuthTableAdapter();
         public AdminPageClients()
         {
             InitializeComponent();
+            pole6.ItemsSource = auth.GetData();
+            pole6.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = clients.GetData();
         }
 
@@ -42,6 +45,15 @@ namespace Practice5
                     pole4.Text = row.Row["ClientPhoneNumber"].ToString();
                     pole5.Text = row.Row["ClientEmail"].ToString();
                 }
+                if (dg_BD.SelectedItem is DataRowView selectedRow) 
+                {
+                    int authID = Convert.ToInt32(selectedRow["Auth_ID"]);
+                    foreach (DataRowView item in pole6.Items)
+                    {
+                        pole6.SelectedItem = item;
+                        break;
+                    }
+                }
             }
         }
 
@@ -52,6 +64,7 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 clients.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = clients.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
@@ -66,6 +79,7 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 clients.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = clients.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
             }
             catch
             {
@@ -75,13 +89,20 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            clients.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text));
-            dg_BD.ItemsSource = clients.GetData();
+            if (pole6.SelectedItem is DataRowView selectedauth)
+            {
+                int selectedauthID = Convert.ToInt32(selectedauth["ID_Auth"]);
+                clients.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, selectedauthID);
+                dg_BD.ItemsSource = clients.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[6].Visibility = Visibility.Collapsed;
         }
     }
 }

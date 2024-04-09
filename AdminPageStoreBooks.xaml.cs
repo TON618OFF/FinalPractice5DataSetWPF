@@ -81,6 +81,8 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[2].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[3].Visibility = Visibility.Collapsed;
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -111,11 +113,33 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[3].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[4].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[5].Visibility = Visibility.Collapsed;
         }
 
         private void CreateBackup_Click(object sender, RoutedEventArgs e)
         {
             backups.Backup_BookStore();
+        }
+
+        private void CreateCheck_Click(object sender, RoutedEventArgs e)
+        {
+            StaffTableAdapter staff = new StaffTableAdapter();
+            StoreBooksTableAdapter storebook = new StoreBooksTableAdapter();
+            ClientsTableAdapter client = new ClientsTableAdapter();
+
+            var staffinfo = staff.GetData();
+            var storebookinfo = storebook.GetData();
+            var clientinfo = client.GetData();
+
+            string fileName = "D:\\Vyacheslav\\Study\\Project\\PRACTICA\\ласт практика\\order_details.txt";
+            string orderDetails = "\t\t\tИнформационна Система (ИС) Книжного Магазина" + "\n\t\t\tКассовый чек #" + pole2.Text + "\n\n\n\t\t\tДата заказа: " + pole1.Text + "\n\t\t\tОбслуживающий сотрудник: " + pole3.Text + "\n\t\t\tДанные о книге: " + pole4.Text + "\n\t\t\tКлиент оформивший заказ: " + pole5.Text;
+
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                writer.Write(orderDetails);
+            }
         }
     }
 }

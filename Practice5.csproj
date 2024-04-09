@@ -138,6 +138,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ClientPageAuthors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageCover.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageGenre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPagePublishHouse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageQuantityPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageStaff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageStaffPos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientPageStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -190,6 +226,33 @@
     </Compile>
     <Compile Include="Client.xaml.cs">
       <DependentUpon>Client.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageAuthors.xaml.cs">
+      <DependentUpon>ClientPageAuthors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageBooks.xaml.cs">
+      <DependentUpon>ClientPageBooks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageCover.xaml.cs">
+      <DependentUpon>ClientPageCover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageGenre.xaml.cs">
+      <DependentUpon>ClientPageGenre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPagePublishHouse.xaml.cs">
+      <DependentUpon>ClientPagePublishHouse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageQuantityPages.xaml.cs">
+      <DependentUpon>ClientPageQuantityPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageStaff.xaml.cs">
+      <DependentUpon>ClientPageStaff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageStaffPos.xaml.cs">
+      <DependentUpon>ClientPageStaffPos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPageStore.xaml.cs">
+      <DependentUpon>ClientPageStore.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
