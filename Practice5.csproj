@@ -78,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Authors.cs" />
+    <Compile Include="Deser.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="StaffPos.cs" />
     <Page Include="Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

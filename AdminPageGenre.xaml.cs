@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Practice5.DataSet1TableAdapters;
+using static Practice5.DataSet1;
 
 namespace Practice5
 {
@@ -78,6 +79,17 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+        }
+
+        private void ImportJson_Click(object sender, RoutedEventArgs e)
+        {
+            List<Genre> forImport = Deser.DeserializeObject<List<Genre>>();
+            foreach (var item in forImport)
+            {
+                genre.InsertQuery(item.genre);
+            }
+            dg_BD.ItemsSource = null;
+            dg_BD.ItemsSource = genre.GetData();
         }
     }
 }

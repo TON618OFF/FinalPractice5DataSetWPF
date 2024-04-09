@@ -83,5 +83,15 @@ namespace Practice5
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
         }
 
+        private void ImportJson_Click(object sender, RoutedEventArgs e)
+        {
+            List<Authors> forImport = Deser.DeserializeObject<List<Authors>>();
+            foreach (var item in forImport)
+            {
+                authors.InsertQuery(item.AuthorSurname, item.AuthorName, item.AuthorMiddleName);
+            }
+            dg_BD.ItemsSource = null;
+            dg_BD.ItemsSource = authors.GetData();
+        }
     }
 }

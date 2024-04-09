@@ -16,6 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -35,6 +36,7 @@
         <Button x:Name="Delete" Content="Удалить" Grid.Row="6" Grid.Column="2" Width="100" Height="40" FontSize="12" Click="Delete_Click"/>
         <Button x:Name="Edit" Content="Изменить" Grid.Row="6" Grid.Column="3" Width="100" Height="40" FontSize="12" Click="Edit_Click"/>
         <Button x:Name="Add" Content="Добавить" Grid.Row="6" Grid.Column="4" Width="100" Height="40" FontSize="12" Click="Add_Click"/>
+        <Button x:Name="ImportJson" Content="Импорт" FontSize="12" Grid.Row="6" Grid.Column="5" Click="ImportJson_Click"/>
         <Frame x:Name="PageFrame" Grid.RowSpan="7" Grid.ColumnSpan="6" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Page>
