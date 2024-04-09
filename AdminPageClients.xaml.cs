@@ -30,6 +30,7 @@ namespace Practice5
             pole6.ItemsSource = auth.GetData();
             pole6.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = clients.GetData();
+
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)

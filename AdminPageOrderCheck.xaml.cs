@@ -30,6 +30,7 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = ordercheck.GetData();
+
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,6 +84,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 ordercheck.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = ordercheck.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -97,6 +100,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 ordercheck.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = ordercheck.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -108,6 +113,8 @@ namespace Practice5
         {
             ordercheck.InsertQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text));
             dg_BD.ItemsSource = ordercheck.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

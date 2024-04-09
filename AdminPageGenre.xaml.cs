@@ -28,6 +28,7 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = genre.GetData();
+
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,6 +50,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 genre.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = genre.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -63,6 +66,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 genre.UpdateQuery(pole1.Text, Convert.ToInt32(id));
                 dg_BD.ItemsSource = genre.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -74,6 +79,8 @@ namespace Practice5
         {
             genre.InsertQuery(pole1.Text);
             dg_BD.ItemsSource = genre.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -90,6 +97,8 @@ namespace Practice5
             }
             dg_BD.ItemsSource = null;
             dg_BD.ItemsSource = genre.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
     }
 }

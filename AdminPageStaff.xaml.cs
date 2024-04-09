@@ -35,7 +35,8 @@ namespace Practice5
             pole7.ItemsSource = auth.GetData();
             pole7.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = staff.GetData();
-            
+
+
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,6 +98,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 staff.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = staff.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -111,6 +114,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 staff.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = staff.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -122,9 +127,11 @@ namespace Practice5
         {
             if (pole6.SelectedItem is DataRowView selectedauth)
             {
-                int selectedauthID = Convert.ToInt32(selectedauth["ID_Auth"]);
+                int selectedauthID = Convert.ToInt32(selectedauth["Auth_ID"]);
                 staff.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text));
                 dg_BD.ItemsSource = staff.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
 
 

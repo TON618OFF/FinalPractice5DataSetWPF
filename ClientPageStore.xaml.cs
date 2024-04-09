@@ -26,6 +26,8 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = store.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

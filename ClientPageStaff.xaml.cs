@@ -26,6 +26,7 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = staff.GetData();
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

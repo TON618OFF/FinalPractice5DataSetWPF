@@ -50,6 +50,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 staffpos.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = staffpos.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -64,6 +66,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 staffpos.UpdateQuery(pole1.Text, Convert.ToInt32(id));
                 dg_BD.ItemsSource = staffpos.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -75,6 +79,8 @@ namespace Practice5
         {
             staffpos.InsertQuery(pole1.Text);
             dg_BD.ItemsSource = staffpos.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -91,6 +97,8 @@ namespace Practice5
             }
             dg_BD.ItemsSource = null;
             dg_BD.ItemsSource = staffpos.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
     }
 }

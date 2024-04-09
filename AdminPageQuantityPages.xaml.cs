@@ -27,6 +27,7 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = quantitypages.GetData();
+
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,6 +49,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 quantitypages.DeleteQuery(Convert.ToInt32(id));
                 dg_BD.ItemsSource = quantitypages.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch (Exception ex)
             {
@@ -62,6 +65,8 @@ namespace Practice5
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 quantitypages.UpdateQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = quantitypages.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
             }
             catch
             {
@@ -73,6 +78,8 @@ namespace Practice5
         {
             quantitypages.InsertQuery(Convert.ToInt32(pole1.Text));
             dg_BD.ItemsSource = quantitypages.GetData();
+            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
