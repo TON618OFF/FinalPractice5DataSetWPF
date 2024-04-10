@@ -132,13 +132,8 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 books.DeleteQuery(Convert.ToInt32(id));
-                dg_BD.ItemsSource = books.GetFullInfo();
+                dg_BD.ItemsSource = books.GetData();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[4].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[5].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[6].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[7].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[8].Visibility = Visibility.Collapsed;
 
             }
             catch (Exception ex)
@@ -153,13 +148,8 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 books.UpdateQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(pole8.Text), Convert.ToInt32(id));
-                dg_BD.ItemsSource = books.GetFullInfo();
+                dg_BD.ItemsSource = books.GetData();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[4].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[5].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[6].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[7].Visibility = Visibility.Collapsed;
-                dg_BD.Columns[8].Visibility = Visibility.Collapsed;
 
             }
             catch
@@ -182,13 +172,8 @@ namespace Practice5
                     int selectedQuantityPagesID = Convert.ToInt32(selectedQuantityPages["ID_QuantityPages"]);
 
                     books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), selectedAuthorID, selectedGenreID, selectedPublishHouseID, selectedCoverID, selectedQuantityPagesID);
-                    dg_BD.ItemsSource = books.GetFullInfo();
+                    dg_BD.ItemsSource = books.GetData();
                     dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-                    dg_BD.Columns[4].Visibility = Visibility.Collapsed;
-                    dg_BD.Columns[5].Visibility = Visibility.Collapsed;
-                    dg_BD.Columns[6].Visibility = Visibility.Collapsed;
-                    dg_BD.Columns[7].Visibility = Visibility.Collapsed;
-                    dg_BD.Columns[8].Visibility = Visibility.Collapsed;
 
                 }
             }

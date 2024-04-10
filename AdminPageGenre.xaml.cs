@@ -62,7 +62,7 @@ namespace Practice5
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Удаление не было совершено: это значение используется в другой таблице");
             }

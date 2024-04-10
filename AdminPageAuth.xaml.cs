@@ -74,7 +74,7 @@ namespace Practice5
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Невозможно удалить данные, так как они используются в другой таблице");
             }
         }
 
@@ -132,7 +132,7 @@ namespace Practice5
             }
             catch
             {
-                MessageBox.Show("Не трожь внешние ключи!");
+                MessageBox.Show("Не выбрано ни одно поле!");
             }
         }
 

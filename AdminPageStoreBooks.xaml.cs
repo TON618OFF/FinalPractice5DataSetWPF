@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Practice5.DataSet1TableAdapters;
+using static Practice5.DataSet1;
 
 namespace Practice5
 {
@@ -101,20 +103,34 @@ namespace Practice5
                 storebooks.UpdateQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(pole2.Text), Convert.ToInt32(pole3.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = storebooks.GetData();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
             }
             catch
             {
-                MessageBox.Show("Не трожь внешние ключи!");
+                MessageBox.Show("Данные используются в другой таблице");
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            storebooks.InsertQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(pole2.Text), Convert.ToInt32(pole3.Text));
-            dg_BD.ItemsSource = storebooks.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            if (pole1.Text != null && pole2.Text != null && pole3.Text != null)
+            {
+                var existingBook = books.GetData().Any(x => x.ID_Book == Convert.ToInt32(pole1.Text));
 
+                if (existingBook)
+                {
+                    MessageBox.Show("Данные о наличии этой книги уже находятся в таблице!");
+                }
+                else
+                {
+                    storebooks.InsertQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(pole2.Text), Convert.ToInt32(pole3.Text));
+                    dg_BD.ItemsSource = storebooks.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Извините, но вы ничего не ввели");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

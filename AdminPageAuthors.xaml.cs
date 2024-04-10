@@ -83,19 +83,15 @@ namespace Practice5
             }
             catch
             {
-                MessageBox.Show("Не трожь внешние ключи!");
+                MessageBox.Show("Не выбрано никакое поле!");
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            
-
-
             authors.InsertQuery(pole1.Text, pole2.Text, pole3.Text);
             dg_BD.ItemsSource = authors.GetData();
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -113,7 +109,6 @@ namespace Practice5
             dg_BD.ItemsSource = null;
             dg_BD.ItemsSource = authors.GetData();
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
         }
     }
 }
