@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace Practice5
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Удаление не было совершено: это значение используется в другой таблице");
             }
         }
 
@@ -79,23 +80,30 @@ namespace Practice5
             }
             catch
             {
-                MessageBox.Show("Не трожь внешние ключи!");
+                MessageBox.Show("Не выбрано никакое поле!");
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string genreName = pole1.Text;
-
-            if (genreName.Length > 3)
+            var existingPosition = genre.GetData().Any(x => x.Genre == pole1.Text);
+            if (existingPosition)
             {
-                genre.InsertQuery(pole1.Text);
-                dg_BD.ItemsSource = genre.GetData();
-                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                MessageBox.Show("Такой жанр уже существует");
             }
             else
             {
-                MessageBox.Show("Длина жанра должна быть больше 3 символов");
+                if (genreName.Length > 3)
+                {
+                    genre.InsertQuery(pole1.Text);
+                    dg_BD.ItemsSource = genre.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MessageBox.Show("Жанр может иметь минимум 4 символа");
+                }
             }
         }
 

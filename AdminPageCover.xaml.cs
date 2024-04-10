@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Practice5.DataSet1TableAdapters;
+using static Practice5.DataSet1;
 
 namespace Practice5
 {
@@ -83,10 +84,17 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            cover.InsertQuery(pole1.Text);
-            dg_BD.ItemsSource = cover.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
+            var existingPosition = cover.GetData().Any(x => x.Cover == pole1.Text);
+            if (existingPosition)
+            {
+                MessageBox.Show("Такая обложка уже существует");
+            }
+            else
+            {
+                cover.InsertQuery(pole1.Text);
+                dg_BD.ItemsSource = cover.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -55,7 +55,7 @@ namespace Practice5
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Нельзя удалить должность, так как она используется в другой таблице");
             }
         }
 
@@ -77,10 +77,20 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            staffpos.InsertQuery(pole1.Text);
-            dg_BD.ItemsSource = staffpos.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            var existingPosition = staffpos.GetData().Any(x => x.Position == pole1.Text);
 
+            if (existingPosition)
+            {
+                // Такая должность уже существует, не добавляем новую запись
+                MessageBox.Show("Такая должность существует");
+            }
+            else
+            {
+                // Добавляем новую запись
+                staffpos.InsertQuery(pole1.Text);
+                dg_BD.ItemsSource = staffpos.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

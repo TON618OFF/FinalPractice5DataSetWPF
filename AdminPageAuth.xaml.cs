@@ -41,6 +41,10 @@ namespace Practice5
                     pole1.Text = row.Row["JustLogin"].ToString();
                     pole2.Text = row.Row["JustPassword"].ToString();
                 }
+                else
+                {
+                    MessageBox.Show("Не выбрано ни одно поле");
+                }
             }
         }
 

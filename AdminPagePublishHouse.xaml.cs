@@ -29,7 +29,6 @@ namespace Practice5
             InitializeComponent();
             pole1.PreviewTextInput += Pole1_PreviewTextInput;
             dg_BD.ItemsSource = publishhouse.GetData();
-
         }
 
         private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -60,9 +59,9 @@ namespace Practice5
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Данные используются в другой таблице, удаление невозможно");
             }
         }
 
@@ -74,7 +73,6 @@ namespace Practice5
                 publishhouse.UpdateQuery(pole1.Text, Convert.ToInt32(id));
                 dg_BD.ItemsSource = publishhouse.GetData();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
             }
             catch
             {
@@ -84,10 +82,25 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            publishhouse.InsertQuery(pole1.Text);
-            dg_BD.ItemsSource = publishhouse.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            var existingPosition = publishhouse.GetData().Any(x => x.PublishHouse == pole1.Text);
 
+            if (existingPosition)
+            {
+                MessageBox.Show("Такое издательство уже существуеет, можно добавить какое-либо другое");
+            }
+            else
+            {
+                if (pole1.Text.Length < 3)
+                {
+                    MessageBox.Show("Увы, но название издательство должно иметь минимум 3 буквы!");
+                }
+                else
+                {
+                    publishhouse.InsertQuery(pole1.Text);
+                    dg_BD.ItemsSource = publishhouse.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

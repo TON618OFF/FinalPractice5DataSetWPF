@@ -24,6 +24,7 @@
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="cb_DB" Grid.Column="1" Grid.ColumnSpan="1" Width="300" SelectionChanged="cb_DB_SelectionChanged"/>
+        <Button x:Name="ExitButton" Content="Выйти" Grid.Column="5" Click="ExitButton_Click"/>
         <Frame x:Name="PageFrame" Grid.RowSpan="7" Grid.ColumnSpan="5" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

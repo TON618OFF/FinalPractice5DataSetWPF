@@ -70,7 +70,7 @@ namespace Practice5
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Эти данные используются в другой таблице!");
             }
         }
 
@@ -93,9 +93,19 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            quantitypages.InsertQuery(Convert.ToInt32(pole1.Text));
-            dg_BD.ItemsSource = quantitypages.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+
+            var existingPosition = quantitypages.GetData().Any(x => x.Pages == Convert.ToInt32(pole1.Text));
+            if (existingPosition)
+            {
+                MessageBox.Show("Такое количество страниц уже существует в этой таблице, добавьте другое.");
+            }
+            else
+            {
+
+                quantitypages.InsertQuery(Convert.ToInt32(pole1.Text));
+                dg_BD.ItemsSource = quantitypages.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            }
 
         }
 
