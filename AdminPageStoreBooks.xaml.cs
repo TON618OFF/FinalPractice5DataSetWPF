@@ -41,12 +41,38 @@ namespace Practice5
         {
             if (dg_BD.SelectedItem != null)
             {
+                int BookID = 0;
+                int StoreID = 0;
                 DataRowView row = dg_BD.SelectedItem as DataRowView;
                 if (row != null)
                 {
                     pole1.Text = row.Row["BooksAmount"].ToString();
                     pole2.Text = row.Row["Book_ID"].ToString();
                     pole3.Text = row.Row["Store_ID"].ToString();
+                }
+                if (!row.Row.IsNull("Book_ID"))
+                {
+                    BookID = Convert.ToInt32(row.Row["Book_ID"]);
+                }
+                foreach (DataRowView item in pole2.Items)
+                {
+                    if (!item.Row.IsNull("ID_Book") && Convert.ToInt32(item.Row["ID_Book"]) == BookID)
+                    {
+                        pole2.SelectedItem = item;
+                        break;
+                    }
+                }
+                if (!row.Row.IsNull("Store_ID"))
+                {
+                    StoreID = Convert.ToInt32(row.Row["Store_ID"]);
+                }
+                foreach (DataRowView item in pole3.Items)
+                {
+                    if (!item.Row.IsNull("ID_Store") && Convert.ToInt32(item.Row["ID_Store"]) == StoreID)
+                    {
+                        pole3.SelectedItem = item;
+                        break;
+                    }
                 }
             }
         }
@@ -94,8 +120,6 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[2].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[3].Visibility = Visibility.Collapsed;
         }
 
     }

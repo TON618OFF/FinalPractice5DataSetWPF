@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,17 @@ namespace Practice5
         public AdminPageAuthors()
         {
             InitializeComponent();
+            pole1.PreviewTextInput += Pole1_PreviewTextInput;
+            pole2.PreviewTextInput += Pole1_PreviewTextInput;
+            pole3.PreviewTextInput += Pole1_PreviewTextInput;
             dg_BD.ItemsSource = authors.GetData();
+        }
+
+        private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^а-яА-Яa-zA-Z]+");
+
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,6 +89,9 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            
+
+
             authors.InsertQuery(pole1.Text, pole2.Text, pole3.Text);
             dg_BD.ItemsSource = authors.GetData();
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;

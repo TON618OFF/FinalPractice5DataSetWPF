@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,8 +28,15 @@ namespace Practice5
         public AdminPageGenre()
         {
             InitializeComponent();
+            pole1.PreviewTextInput += Pole1_PreviewTextInput;
             dg_BD.ItemsSource = genre.GetData();
 
+        }
+
+        private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^а-яА-Яa-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -77,10 +85,18 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            genre.InsertQuery(pole1.Text);
-            dg_BD.ItemsSource = genre.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            string genreName = pole1.Text;
 
+            if (genreName.Length > 3)
+            {
+                genre.InsertQuery(pole1.Text);
+                dg_BD.ItemsSource = genre.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MessageBox.Show("Длина жанра должна быть больше 3 символов");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -98,7 +114,6 @@ namespace Practice5
             dg_BD.ItemsSource = null;
             dg_BD.ItemsSource = genre.GetData();
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
         }
     }
 }

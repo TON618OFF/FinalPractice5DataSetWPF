@@ -15,6 +15,7 @@ namespace Practice5
         public static T DeserializeObject<T>()
         {
             OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "JSON files (*.json)|*.json";
             if (dialog.ShowDialog() == true)
             {
                 string json = File.ReadAllText(dialog.FileName);

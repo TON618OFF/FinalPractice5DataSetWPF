@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,23 @@ namespace Practice5
         public AdminPageQuantityPages()
         {
             InitializeComponent();
+            pole1.PreviewTextInput += Pole1_PreviewTextInput;
             dg_BD.ItemsSource = quantitypages.GetData();
 
+        }
+
+        private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var regex = new Regex(@"^\d+$");
+            if (!string.IsNullOrEmpty(pole1.Text) && !pole1.Text.StartsWith("0") && regex.IsMatch(pole1.Text))
+            {
+                Regex regexoriginal = new Regex("[^0-9]+");
+                e.Handled = regexoriginal.IsMatch(e.Text);
+            }
+            else
+            {
+                MessageBox.Show("Извините, но число либо начинается с нуля, либо поле пустое!");
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,6 +78,7 @@ namespace Practice5
         {
             try
             {
+                
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 quantitypages.UpdateQuery(Convert.ToInt32(pole1.Text), Convert.ToInt32(id));
                 dg_BD.ItemsSource = quantitypages.GetData();

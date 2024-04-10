@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,7 +49,7 @@ namespace Practice5
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dg_BD.SelectedItem != null)
+            if (dg_BD.SelectedItem != null) 
             {
                 DataRowView row = dg_BD.SelectedItem as DataRowView;
                 if (row != null)
@@ -57,64 +58,69 @@ namespace Practice5
                     pole2.Text = row.Row["PublishDate"].ToString();
                     pole3.Text = row.Row["Price"].ToString();
                 }
-                if (dg_BD.SelectedItem is DataRowView selectedRow)
+                int AUTHORID = 0;
+                int GENREID = 0;
+                int PUBLISHHOUSE = 0;
+                int COVER = 0;
+                int QUANTITYPAGES = 0;
+                if (!row.Row.IsNull("Author_ID"))
                 {
-                    int authorID = Convert.ToInt32(selectedRow["Author_ID"]);
-                    foreach (DataRowView item in pole4.Items)
+                    AUTHORID = Convert.ToInt32(row.Row["Author_ID"]);
+                }
+                foreach (DataRowView item in pole4.Items)
+                {
+                    if (!item.Row.IsNull("ID_Author") && Convert.ToInt32(item.Row["ID_Author"]) == AUTHORID)
                     {
-                        if (Convert.ToInt32(item["ID_Author"]) == authorID)
-                        {
-                            pole4.SelectedItem = item; 
-                            break;
-                        }
+                        pole4.SelectedItem = item;
+                        break;
                     }
                 }
-                if (dg_BD.SelectedItem is DataRowView selectedRow1)
+                if (!row.Row.IsNull("Genre_ID"))
                 {
-                    int genreID = Convert.ToInt32(selectedRow1["Genre_ID"]);
-                    foreach (DataRowView item in pole5.Items)
+                    GENREID = Convert.ToInt32(row.Row["Genre_ID"]);
+                }
+                foreach (DataRowView item in pole5.Items)
+                {
+                    if (!item.Row.IsNull("ID_Genre") && Convert.ToInt32(item.Row["ID_Genre"]) == GENREID)
                     {
-                        if (Convert.ToInt32(item["ID_Genre"]) == genreID)
-                        {
-                            pole5.SelectedItem = item;
-                            break;
-                        }
+                        pole5.SelectedItem = item;
+                        break;
                     }
                 }
-                if (dg_BD.SelectedItem is DataRowView selectedRow2)
+                if (!row.Row.IsNull("PublishHouse_ID"))
                 {
-                    int publishhouseID = Convert.ToInt32(selectedRow2["PublishHouse_ID"]);
-                    foreach (DataRowView item in pole6.Items)
+                    PUBLISHHOUSE = Convert.ToInt32(row.Row["PublishHouse_ID"]);
+                }
+                foreach (DataRowView item in pole6.Items)
+                {
+                    if (!item.Row.IsNull("ID_PublishHouse") && Convert.ToInt32(item.Row["ID_PublishHouse"]) == PUBLISHHOUSE)
                     {
-                        if (Convert.ToInt32(item["ID_PublishHouse"]) == publishhouseID)
-                        {
-                            pole6.SelectedItem = item;
-                            break;
-                        }
+                        pole6.SelectedItem = item;
+                        break;
                     }
                 }
-                if (dg_BD.SelectedItem is DataRowView selectedRow3)
+                if (!row.Row.IsNull("Cover_ID"))
                 {
-                    int coverID = Convert.ToInt32(selectedRow3["Cover_ID"]);
-                    foreach (DataRowView item in pole7.Items)
+                    COVER = Convert.ToInt32(row.Row["Cover_ID"]);
+                }
+                foreach (DataRowView item in pole7.Items)
+                {
+                    if (!item.Row.IsNull("ID_Cover") && Convert.ToInt32(item.Row["ID_Cover"]) == COVER)
                     {
-                        if (Convert.ToInt32(item["ID_Cover"]) == coverID)
-                        {
-                            pole7.SelectedItem = item;
-                            break;
-                        }
+                        pole7.SelectedItem = item;
+                        break;
                     }
                 }
-                if (dg_BD.SelectedItem is DataRowView selectedRow4)
+                if (!row.Row.IsNull("QuantityPages_ID"))
                 {
-                    int quantitypagesID = Convert.ToInt32(selectedRow4["QuantityPages_ID"]);
-                    foreach (DataRowView item in pole8.Items)
+                    QUANTITYPAGES = Convert.ToInt32(row.Row["QuantityPages_ID"]);
+                }
+                foreach (DataRowView item in pole8.Items)
+                {
+                    if (!item.Row.IsNull("ID_QuantityPages") && Convert.ToInt32(item.Row["ID_QuantityPages"]) == QUANTITYPAGES)
                     {
-                        if (Convert.ToInt32(item["ID_QuantityPages"]) == quantitypagesID)
-                        {
-                            pole8.SelectedItem = item;
-                            break;
-                        }
+                        pole8.SelectedItem = item;
+                        break;
                     }
                 }
             }
@@ -126,8 +132,13 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 books.DeleteQuery(Convert.ToInt32(id));
-                dg_BD.ItemsSource = books.GetData();
+                dg_BD.ItemsSource = books.GetFullInfo();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[4].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[5].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[6].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[7].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[8].Visibility = Visibility.Collapsed;
 
             }
             catch (Exception ex)
@@ -142,8 +153,13 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 books.UpdateQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(pole8.Text), Convert.ToInt32(id));
-                dg_BD.ItemsSource = books.GetData();
+                dg_BD.ItemsSource = books.GetFullInfo();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[4].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[5].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[6].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[7].Visibility = Visibility.Collapsed;
+                dg_BD.Columns[8].Visibility = Visibility.Collapsed;
 
             }
             catch
@@ -154,20 +170,38 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(pole8.Text));
-            dg_BD.ItemsSource = books.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            try
+            {
+
+                if (pole4.SelectedItem is DataRowView selectedAuthor && pole5.SelectedItem is DataRowView selectedGenre && pole6.SelectedItem is DataRowView selectedPublishHouse && pole7.SelectedItem is DataRowView selectedCover && pole8.SelectedItem is DataRowView selectedQuantityPages)
+                {
+                    int selectedAuthorID = Convert.ToInt32(selectedAuthor["ID_Author"]);
+                    int selectedGenreID = Convert.ToInt32(selectedGenre["ID_Genre"]);
+                    int selectedPublishHouseID = Convert.ToInt32(selectedPublishHouse["ID_PublishHouse"]);
+                    int selectedCoverID = Convert.ToInt32(selectedCover["ID_Cover"]);
+                    int selectedQuantityPagesID = Convert.ToInt32(selectedQuantityPages["ID_QuantityPages"]);
+
+                    books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), selectedAuthorID, selectedGenreID, selectedPublishHouseID, selectedCoverID, selectedQuantityPagesID);
+                    dg_BD.ItemsSource = books.GetFullInfo();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[4].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[5].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[6].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[7].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[8].Visibility = Visibility.Collapsed;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка:" + ex.Message);
+            }
 
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[4].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[5].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[6].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[7].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[8].Visibility = Visibility.Collapsed;
         }
 
     }

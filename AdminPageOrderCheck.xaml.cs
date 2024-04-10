@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,10 +27,19 @@ namespace Practice5
     {
         OrderCheckTableAdapter ordercheck = new OrderCheckTableAdapter();
         QueriesTableAdapter backups = new QueriesTableAdapter();
+        ClientsTableAdapter clients = new ClientsTableAdapter();
+        StaffTableAdapter staff = new StaffTableAdapter();
+        StoreBooksTableAdapter storebook = new StoreBooksTableAdapter();
         public AdminPageOrderCheck()
         {
             InitializeComponent();
             dg_BD.ItemsSource = ordercheck.GetData();
+            pole3.ItemsSource = staff.GetData();
+            pole3.DisplayMemberPath = "StaffName";
+            pole4.ItemsSource = storebook.GetData();
+            pole4.DisplayMemberPath = "BooksAmount";
+            pole5.ItemsSource = clients.GetData();
+            pole5.DisplayMemberPath = "ClientName";
 
         }
 
@@ -37,14 +47,52 @@ namespace Practice5
         {
             if (dg_BD.SelectedItem != null)
             {
+                int StaffID = 0;
+                int StoreBookID = 0;
+                int ClientID = 0;
                 DataRowView row = dg_BD.SelectedItem as DataRowView;
                 if (row != null)
                 {
+
                     pole1.Text = row.Row["OrderDate"].ToString();
                     pole2.Text = row.Row["OrderNumber"].ToString();
-                    pole3.Text = row.Row["Staff_ID"].ToString();
-                    pole4.Text = row.Row["StoreBook_ID"].ToString();
-                    pole5.Text = row.Row["Client_ID"].ToString();
+
+                    if (!row.Row.IsNull("Staff_ID"))
+                    {
+                        StaffID = Convert.ToInt32(row.Row["Staff_ID"]);
+                    }
+                    foreach (DataRowView item in pole3.Items)
+                    {
+                        if (!item.Row.IsNull("ID_Staff") && Convert.ToInt32(item.Row["ID_Staff"]) == StaffID)
+                        {
+                            pole3.SelectedItem = item;
+                            break;
+                        }
+                    }
+                    if (!row.Row.IsNull("StoreBook_ID"))
+                    {
+                        StoreBookID = Convert.ToInt32(row.Row["StoreBook_ID"]);
+                    }
+                    foreach (DataRowView item in pole4.Items)
+                    {
+                        if (!item.Row.IsNull("ID_StoreBook") && Convert.ToInt32(item.Row["ID_StoreBook"]) == StoreBookID)
+                        {
+                            pole4.SelectedItem = item;
+                            break;
+                        }
+                    }
+                    if (!row.Row.IsNull("Client_ID"))
+                    {
+                        ClientID = Convert.ToInt32(row.Row["Client_ID"]);
+                    }
+                    foreach (DataRowView item in pole5.Items)
+                    {
+                        if (!item.Row.IsNull("ID_Client") && Convert.ToInt32(item.Row["ID_Client"]) == ClientID)
+                        {
+                            pole5.SelectedItem = item;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -83,7 +131,7 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 ordercheck.DeleteQuery(Convert.ToInt32(id));
-                dg_BD.ItemsSource = ordercheck.GetData();
+                dg_BD.ItemsSource = ordercheck.GetFullInfo();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
             }
@@ -99,7 +147,7 @@ namespace Practice5
             {
                 object id = (dg_BD.SelectedItem as DataRowView).Row[0];
                 ordercheck.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text), Convert.ToInt32(id));
-                dg_BD.ItemsSource = ordercheck.GetData();
+                dg_BD.ItemsSource = ordercheck.GetFullInfo();
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
             }
@@ -111,8 +159,9 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+
             ordercheck.InsertQuery(pole1.Text, pole2.Text, Convert.ToInt32(pole3.Text), Convert.ToInt32(pole4.Text), Convert.ToInt32(pole5.Text));
-            dg_BD.ItemsSource = ordercheck.GetData();
+            dg_BD.ItemsSource = ordercheck.GetFullInfo();
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
         }
@@ -120,9 +169,6 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[3].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[4].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[5].Visibility = Visibility.Collapsed;
         }
 
         private void CreateBackup_Click(object sender, RoutedEventArgs e)
@@ -132,13 +178,6 @@ namespace Practice5
 
         private void CreateCheck_Click(object sender, RoutedEventArgs e)
         {
-            StaffTableAdapter staff = new StaffTableAdapter();
-            StoreBooksTableAdapter storebook = new StoreBooksTableAdapter();
-            ClientsTableAdapter client = new ClientsTableAdapter();
-
-            var staffinfo = staff.GetData();
-            var storebookinfo = storebook.GetData();
-            var clientinfo = client.GetData();
 
             string fileName = "D:\\Vyacheslav\\Study\\Project\\PRACTICA\\ласт практика\\order_details.txt";
             string orderDetails = "\t\t\tИнформационна Система (ИС) Книжного Магазина" + "\n\t\t\tКассовый чек #" + pole2.Text + "\n\n\n\t\t\tДата заказа: " + pole1.Text + "\n\t\t\tОбслуживающий сотрудник: " + pole3.Text + "\n\t\t\tДанные о книге: " + pole4.Text + "\n\t\t\tКлиент оформивший заказ: " + pole5.Text;

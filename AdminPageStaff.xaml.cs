@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,13 +30,13 @@ namespace Practice5
 
         public AdminPageStaff()
         {
+
             InitializeComponent();
             pole6.ItemsSource = staffpos.GetData();
             pole6.DisplayMemberPath = "Position";
             pole7.ItemsSource = auth.GetData();
             pole7.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = staff.GetData();
-
 
         }
 
@@ -93,57 +94,107 @@ namespace Practice5
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
-                staff.DeleteQuery(Convert.ToInt32(id));
-                dg_BD.ItemsSource = staff.GetData();
-                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
-            }
-            catch (Exception ex)
+            string phoneNumber = pole4.Text;
+
+            if (IsValidRussianPhoneNumber(phoneNumber))
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                string email = pole5.Text;
+                if (IsValidEmailFormat(email))
+                {
+                    object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                    staff.DeleteQuery(Convert.ToInt32(id));
+                    dg_BD.ItemsSource = staff.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка в почте. Проверьте корректность");
+                }
             }
+            else
+            {
+                MessageBox.Show("Ошибка в длине номера телефона");
+            }
+
+        }
+
+        private bool IsValidRussianPhoneNumber(string phoneNumber)
+        {
+            // Регулярное выражение для проверки номера телефона в российском формате
+            Regex regex = new Regex(@"^\+(?:[0-9] ?){6,14}[0-9]$");
+
+            return regex.IsMatch(phoneNumber);
+        }
+
+        private bool IsValidEmailFormat(string email)
+        {
+            // Проверка наличия @ и точки, а также формата до @
+            if (email.Contains("@") && email.Contains(".") && email.IndexOf("@") < email.LastIndexOf("."))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                object id = (dg_BD.SelectedItem as DataRowView).Row[0];
-                staff.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(id));
-                dg_BD.ItemsSource = staff.GetData();
-                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            string phoneNumber = new string(pole4.Text.Where(char.IsDigit).ToArray());
 
-            }
-            catch
+            if (phoneNumber.Length == 12)
             {
-                MessageBox.Show("Не трожь внешние ключи!");
+                string email = pole5.Text;
+                if (IsValidEmailFormat(email))
+                {
+                    object id = (dg_BD.SelectedItem as DataRowView).Row[0];
+                    staff.UpdateQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text), Convert.ToInt32(id));
+                    dg_BD.ItemsSource = staff.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка в почте. Проверьте корректность");
+                }
             }
+            else
+            {
+                MessageBox.Show("Ошибка в длине номера телефона");
+            }
+
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (pole6.SelectedItem is DataRowView selectedauth)
+            string phoneNumber = pole4.Text;
+            phoneNumber = new string(phoneNumber.Where(char.IsDigit).ToArray());
+
+            if (phoneNumber.Length == 11)
             {
-                int selectedauthID = Convert.ToInt32(selectedauth["Auth_ID"]);
-                staff.InsertQuery(pole1.Text, pole2.Text, pole3.Text, pole4.Text, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text));
-                dg_BD.ItemsSource = staff.GetData();
-                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-
+                string email = pole5.Text;
+                if (IsValidEmailFormat(email))
+                {
+                    if (pole6.SelectedItem is DataRowView selectedauth)
+                    {
+                        int selectedauthID = Convert.ToInt32(selectedauth["Auth_ID"]);
+                        staff.InsertQuery(pole1.Text, pole2.Text, pole3.Text, phoneNumber, pole5.Text, Convert.ToInt32(pole6.Text), Convert.ToInt32(pole7.Text));
+                        dg_BD.ItemsSource = staff.GetData();
+                        dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка в почте. Проверьте корректность");
+                }
             }
-
-
-
+            else
+            {
+                MessageBox.Show("Ошибка в длине номера телефона");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[6].Visibility = Visibility.Collapsed;
-            dg_BD.Columns[7].Visibility = Visibility.Collapsed;
-
         }
     }
 }

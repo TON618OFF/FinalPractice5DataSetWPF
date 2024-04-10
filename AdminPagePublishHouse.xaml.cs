@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,8 +27,15 @@ namespace Practice5
         public AdminPagePublishHouse()
         {
             InitializeComponent();
+            pole1.PreviewTextInput += Pole1_PreviewTextInput;
             dg_BD.ItemsSource = publishhouse.GetData();
 
+        }
+
+        private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^а-яА-Яa-zA-Z]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
