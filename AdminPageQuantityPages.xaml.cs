@@ -28,8 +28,17 @@ namespace Practice5
         {
             InitializeComponent();
             pole1.PreviewTextInput += Pole1_PreviewTextInput;
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
             dg_BD.ItemsSource = quantitypages.GetData();
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -101,10 +110,18 @@ namespace Practice5
             }
             else
             {
-
-                quantitypages.InsertQuery(Convert.ToInt32(pole1.Text));
-                dg_BD.ItemsSource = quantitypages.GetData();
-                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                int pages = Convert.ToInt32(pole1.Text);
+                if (pages <= 0)
+                {
+                    MessageBox.Show("Количество страниц не может быть меньше и равно нуля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    quantitypages.InsertQuery(Convert.ToInt32(pole1.Text));
+                    dg_BD.ItemsSource = quantitypages.GetData();
+                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                }
             }
 
         }

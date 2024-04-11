@@ -33,6 +33,11 @@ namespace Practice5
         public AdminPageOrderCheck()
         {
             InitializeComponent();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole4.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole5.PreviewKeyDown += TextBox_PreviewKeyDown;
             dg_BD.ItemsSource = ordercheck.GetData();
             pole3.ItemsSource = staff.GetData();
             pole3.DisplayMemberPath = "StaffName";
@@ -41,6 +46,14 @@ namespace Practice5
             pole5.ItemsSource = clients.GetData();
             pole5.DisplayMemberPath = "ClientName";
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)

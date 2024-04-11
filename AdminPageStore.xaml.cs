@@ -26,8 +26,18 @@ namespace Practice5
         public AdminPageStore()
         {
             InitializeComponent();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
             dg_BD.ItemsSource = store.GetData();
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)

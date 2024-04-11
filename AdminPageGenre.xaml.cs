@@ -30,8 +30,17 @@ namespace Practice5
         {
             InitializeComponent();
             pole1.PreviewTextInput += Pole1_PreviewTextInput;
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
             dg_BD.ItemsSource = genre.GetData();
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)

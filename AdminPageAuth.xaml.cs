@@ -29,6 +29,16 @@ namespace Practice5
         {
             InitializeComponent();
             dg_BD.ItemsSource = auth.GetData();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)

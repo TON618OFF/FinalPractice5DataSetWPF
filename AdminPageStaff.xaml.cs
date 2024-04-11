@@ -32,12 +32,27 @@ namespace Practice5
         {
 
             InitializeComponent();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole4.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole5.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole6.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole7.PreviewKeyDown += TextBox_PreviewKeyDown;
             pole6.ItemsSource = staffpos.GetData();
             pole6.DisplayMemberPath = "Position";
             pole7.ItemsSource = auth.GetData();
             pole7.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = staff.GetData();
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)

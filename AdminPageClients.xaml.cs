@@ -32,10 +32,22 @@ namespace Practice5
             pole2.PreviewTextInput += Pole1_PreviewTextInput;
             pole3.PreviewTextInput += Pole1_PreviewTextInput;
             pole4.PreviewTextInput += Pole4_PreviewTextInput;
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole4.PreviewKeyDown += TextBox_PreviewKeyDown;
             pole6.ItemsSource = auth.GetData();
             pole6.DisplayMemberPath = "JustLogin";
             dg_BD.ItemsSource = clients.GetData();
 
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void Pole4_PreviewTextInput(object sender, TextCompositionEventArgs e)

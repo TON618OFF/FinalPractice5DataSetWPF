@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace JsonCreator.Model
 {
-    internal class Genre : IToFindModel
+    internal class Authors : IToFindModel
     {
 
-        public string genre { get; set; }
+        public string AuthorSurname { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorMiddleName { get; set; }
 
     }
 }

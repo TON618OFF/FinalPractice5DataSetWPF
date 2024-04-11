@@ -31,7 +31,18 @@ namespace Practice5
             pole1.PreviewTextInput += Pole1_PreviewTextInput;
             pole2.PreviewTextInput += Pole1_PreviewTextInput;
             pole3.PreviewTextInput += Pole1_PreviewTextInput;
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
             dg_BD.ItemsSource = authors.GetData();
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void Pole1_PreviewTextInput(object sender, TextCompositionEventArgs e)

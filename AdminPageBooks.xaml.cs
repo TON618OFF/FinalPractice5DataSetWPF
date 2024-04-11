@@ -34,6 +34,14 @@ namespace Practice5
         public AdminPageBooks()
         {
             InitializeComponent();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole4.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole5.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole6.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole7.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole8.PreviewKeyDown += TextBox_PreviewKeyDown;
             pole4.ItemsSource = authors.GetData();
             pole4.DisplayMemberPath = "AuthorSurname";
             pole5.ItemsSource = genre.GetData();
@@ -45,6 +53,14 @@ namespace Practice5
             pole8.ItemsSource = quantityPages.GetData();
             pole8.DisplayMemberPath = "Pages";
             dg_BD.ItemsSource = books.GetData();
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -165,15 +181,24 @@ namespace Practice5
 
                 if (pole4.SelectedItem is DataRowView selectedAuthor && pole5.SelectedItem is DataRowView selectedGenre && pole6.SelectedItem is DataRowView selectedPublishHouse && pole7.SelectedItem is DataRowView selectedCover && pole8.SelectedItem is DataRowView selectedQuantityPages)
                 {
-                    int selectedAuthorID = Convert.ToInt32(selectedAuthor["ID_Author"]);
-                    int selectedGenreID = Convert.ToInt32(selectedGenre["ID_Genre"]);
-                    int selectedPublishHouseID = Convert.ToInt32(selectedPublishHouse["ID_PublishHouse"]);
-                    int selectedCoverID = Convert.ToInt32(selectedCover["ID_Cover"]);
-                    int selectedQuantityPagesID = Convert.ToInt32(selectedQuantityPages["ID_QuantityPages"]);
+                    decimal price = Convert.ToDecimal(pole3.Text);
+                    if (price <= 0)
+                    {
+                        MessageBox.Show("Цена книги должна быть больше нуля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        int selectedAuthorID = Convert.ToInt32(selectedAuthor["ID_Author"]);
+                        int selectedGenreID = Convert.ToInt32(selectedGenre["ID_Genre"]);
+                        int selectedPublishHouseID = Convert.ToInt32(selectedPublishHouse["ID_PublishHouse"]);
+                        int selectedCoverID = Convert.ToInt32(selectedCover["ID_Cover"]);
+                        int selectedQuantityPagesID = Convert.ToInt32(selectedQuantityPages["ID_QuantityPages"]);
 
-                    books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), selectedAuthorID, selectedGenreID, selectedPublishHouseID, selectedCoverID, selectedQuantityPagesID);
-                    dg_BD.ItemsSource = books.GetData();
-                    dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                        books.InsertQuery(pole1.Text, pole2.Text, Convert.ToDecimal(pole3.Text), selectedAuthorID, selectedGenreID, selectedPublishHouseID, selectedCoverID, selectedQuantityPagesID);
+                        dg_BD.ItemsSource = books.GetData();
+                        dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                    }
 
                 }
             }

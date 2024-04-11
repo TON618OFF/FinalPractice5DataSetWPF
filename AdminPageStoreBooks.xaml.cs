@@ -31,12 +31,22 @@ namespace Practice5
         public AdminPageStoreBooks()
         {
             InitializeComponent();
+            pole1.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole2.PreviewKeyDown += TextBox_PreviewKeyDown;
+            pole3.PreviewKeyDown += TextBox_PreviewKeyDown;
             pole2.ItemsSource = books.GetData();
             pole2.DisplayMemberPath = "Title";
             pole3.ItemsSource = store.GetData();
             pole3.DisplayMemberPath = "StoreName";
             dg_BD.ItemsSource = storebooks.GetData();
+        }
 
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.V)
+            {
+                e.Handled = true;
+            }
         }
 
         private void dg_BD_SelectionChanged(object sender, SelectionChangedEventArgs e)
