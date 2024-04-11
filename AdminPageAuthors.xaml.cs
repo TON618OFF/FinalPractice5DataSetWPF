@@ -65,9 +65,9 @@ namespace Practice5
                 dg_BD.Columns[0].Visibility = Visibility.Collapsed;
 
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                MessageBox.Show("Эти данные используются в другой таблице");
             }
         }
 
@@ -89,9 +89,16 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            authors.InsertQuery(pole1.Text, pole2.Text, pole3.Text);
-            dg_BD.ItemsSource = authors.GetData();
-            dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            if (!string.IsNullOrEmpty(pole1.Text) && !string.IsNullOrEmpty(pole2.Text) && !string.IsNullOrEmpty(pole3.Text))
+            {
+                authors.InsertQuery(pole1.Text, pole2.Text, pole3.Text);
+                dg_BD.ItemsSource = authors.GetData();
+                dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MessageBox.Show("Поля пусты и не заполнены");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
