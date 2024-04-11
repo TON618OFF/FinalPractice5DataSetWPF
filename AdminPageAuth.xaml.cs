@@ -39,7 +39,7 @@ namespace Practice5
                 if (row != null)
                 {
                     pole1.Text = row.Row["JustLogin"].ToString();
-                    pole2.Text = row.Row["JustPassword"].ToString();
+                    pole2.Password = row.Row["JustPassword"].ToString();
                 }
                 else
                 {
@@ -52,14 +52,14 @@ namespace Practice5
         {
             try
             {
-                if (pole2.Text.Length < 5 && pole2.Text.Length > 15 != (IsValidInput(pole2.Text)) || !IsValidInput(pole2.Text))
+                if (pole2.Password.Length < 5 && pole2.Password.Length > 15 != (IsValidInput(pole2.Password)) || !IsValidInput(pole2.Password))
                 {
                     MessageBox.Show("Логин и пароль должны содержать от 5 до 15 букв и цифр!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 else
                 { 
-                    if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Text))
+                    if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Password))
                     {
                         MessageBox.Show("Поля не имеют никакого внутри значения! Введите в поля данные");
                     }
@@ -69,6 +69,8 @@ namespace Practice5
                         auth.DeleteQuery(Convert.ToInt32(id));
                         dg_BD.ItemsSource = auth.GetData();
                         dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                        dg_BD.Columns[2].Visibility = Visibility.Collapsed;
+
                     }
                 }
             }
@@ -80,22 +82,24 @@ namespace Practice5
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            if (pole2.Text.Length < 5 && pole2.Text.Length > 15 != (IsValidInput(pole2.Text)) || !IsValidInput(pole2.Text))
+            if (pole2.Password.Length < 5 && pole2.Password.Length > 15 != (IsValidInput(pole2.Password)) || !IsValidInput(pole2.Password))
             {
                 MessageBox.Show("Логин и пароль должны содержать от 5 до 15 букв и цифр!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else
             {
-                if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Text))
+                if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Password))
                 {
                     MessageBox.Show("Поля не имеют никакого внутри значения! Введите в поля данные");
                 }
                 else
                 {
-                    auth.InsertQuery(pole1.Text, pole2.Text);
+                    auth.InsertQuery(pole1.Text, pole2.Password);
                     dg_BD.ItemsSource = auth.GetData();
                     dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                    dg_BD.Columns[2].Visibility = Visibility.Collapsed;
+
                 }
             }
         }
@@ -110,23 +114,25 @@ namespace Practice5
         {
             try
             {
-                if (pole2.Text.Length < 5 && pole2.Text.Length > 15 != (IsValidInput(pole2.Text)) || !IsValidInput(pole2.Text))
+                if (pole2.Password.Length < 5 && pole2.Password.Length > 15 != (IsValidInput(pole2.Password)) || !IsValidInput(pole2.Password))
                 {
                     MessageBox.Show("Логин и пароль должны содержать от 5 до 15 букв и цифр!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Text))
+                    if (string.IsNullOrEmpty(pole1.Text) || string.IsNullOrEmpty(pole2.Password))
                     {
                         MessageBox.Show("Поля не имеют никакого внутри значения! Введите в поля данные");
                     }
                     else
                     {
                         object id = (dg_BD.SelectedItem as DataRowView).Row[0];
-                        auth.UpdateQuery(pole1.Text, pole2.Text, Convert.ToInt32(id));
+                        auth.UpdateQuery(pole1.Text, pole2.Password, Convert.ToInt32(id));
                         dg_BD.ItemsSource = auth.GetData();
                         dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+                        dg_BD.Columns[2].Visibility = Visibility.Collapsed;
+
                     }
                 }
             }
@@ -139,6 +145,8 @@ namespace Practice5
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             dg_BD.Columns[0].Visibility = Visibility.Collapsed;
+            dg_BD.Columns[2].Visibility = Visibility.Collapsed;
+
         }
 
     }

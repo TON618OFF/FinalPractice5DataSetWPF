@@ -29,7 +29,7 @@
         <!--<ComboBox x:Name="cb_DB" Grid.ColumnSpan="4" Width="700" SelectionChanged="cb_DB_SelectionChanged"/>-->
         <DataGrid x:Name="dg_BD" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="2" IsReadOnly="True" SelectionChanged="dg_BD_SelectionChanged"/>
         <TextBox x:Name="pole1" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Foreground="White"/>
-        <TextBox x:Name="pole2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Foreground="White"/>
+        <PasswordBox x:Name="pole2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Foreground="White"/>
         <Button x:Name="Delete" Content="Удалить" Grid.Row="6" Grid.Column="2" Width="100" Height="40" FontSize="12" Click="Delete_Click"/>
         <Button x:Name="Edit" Content="Изменить" Grid.Row="6" Grid.Column="3" Width="100" Height="40" FontSize="12" Click="Edit_Click"/>
         <Button x:Name="Add" Content="Добавить" Grid.Row="6" Grid.Column="4" Width="100" Height="40" FontSize="12" Click="Add_Click"/>
